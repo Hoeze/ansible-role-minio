@@ -33,7 +33,7 @@
 
 - name: Extract policies
   set_fact:
-    user_policies: "{{ get_policies.stdout | from_json | community.general.json_query('result.userMappings[0].policies') | default([]) }}"
+    user_policies: "{{ get_policies.stdout | from_json | community.general.json_query('result.userMappings[0].policies') | default([]) or []}}"
 
 - name: Apply user policy
   command: "{{ mc_command }} admin policy attach {{ minio_alias }} {{ user.name }} -u {{ user.name }}"
